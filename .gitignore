@@ -9,3 +9,9 @@ workflow_log.md
 generated_docs_*/
 .aws_credentials
 *.credentials
+
+# Environment files
+.env
+.env.*
+!.env.example
+*.secrets
