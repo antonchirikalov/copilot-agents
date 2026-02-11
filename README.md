@@ -1,16 +1,16 @@
 # Copilot Agents
 
-Reusable GitHub Copilot chat agents for AWS infrastructure design and documentation workflows.
+Reusable GitHub Copilot chat agents for technical solution design and documentation workflows.
 
 ## Agents
 
 | Agent | Role | Subagents | Key Capabilities |
 |-------|------|-----------|------------------|
 | **orchestrator** | Workflow Manager | researcher, solution-designer, critic | Coordinates multi-agent workflows, manages iterations (max 5), prevents loops, delivers final artifacts |
-| **researcher** | Research Specialist | — | Web research via Tavily MCP, AWS documentation discovery, source-backed findings |
-| **solution-designer** | Solution Architect | researcher, critic | Creates Solution Design documents, AWS architecture, extended thinking for complex decisions |
+| **researcher** | Research Specialist | — | Web research via Tavily MCP, technical documentation discovery, source-backed findings |
+| **solution-designer** | Solution Architect | researcher, critic | Creates Solution Design documents, technical architecture, extended thinking for complex decisions |
 | **critic** | Technical Reviewer | — | Reviews designs, structured feedback with severity levels, APPROVED/CONDITIONAL/REJECTED verdicts |
-| **devops** | DevOps Engineer | critic | Terraform generation from approved designs, deployment execution, verification procedures |
+| **devops** | DevOps Engineer | critic | Infrastructure as Code generation from approved designs, deployment execution, verification procedures |
 | **publisher** | Publications Specialist | — | Mermaid to PNG conversion, Confluence page creation via Atlassian MCP |
 
 ### Agent Configuration
@@ -100,8 +100,8 @@ cp -r copilot-agents/skills .github/
 ## Usage
 
 ```
-@orchestrator create solution design for TTS service on AWS
-@researcher research AWS autoscaling best practices
+@orchestrator create solution design for distributed TTS service
+@researcher research autoscaling best practices
 @devops deploy the approved solution
 @publisher publish document to Confluence
 ```
