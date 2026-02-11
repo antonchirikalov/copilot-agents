@@ -4,14 +4,32 @@ Reusable GitHub Copilot chat agents for AWS infrastructure design and documentat
 
 ## Agents
 
-| Agent | Role | Model | Subagents | Key Capabilities |
-|-------|------|-------|-----------|------------------|
-| **orchestrator** | Workflow Manager | Claude Sonnet 4.5 | researcher, solution-designer, critic | Coordinates multi-agent workflows, manages iterations (max 5), prevents loops, delivers final artifacts |
-| **researcher** | Research Specialist | Claude Sonnet 4.5 | — | Web research via Tavily MCP, AWS documentation discovery, source-backed findings |
-| **solution-designer** | Solution Architect | Claude Opus 4.6 | researcher, critic | Creates Solution Design documents, AWS architecture, extended thinking for complex decisions |
-| **critic** | Technical Reviewer | Claude Sonnet 4.5 | — | Reviews designs, structured feedback with severity levels, APPROVED/CONDITIONAL/REJECTED verdicts |
-| **devops** | DevOps Engineer | Claude Sonnet 4.5 | critic | Terraform generation from approved designs, deployment execution, verification procedures |
-| **publisher** | Publications Specialist | Claude Sonnet 4.5 | — | Mermaid to PNG conversion, Confluence page creation via Atlassian MCP |
+| Agent | Role | Subagents | Key Capabilities |
+|-------|------|-----------|------------------|
+| **orchestrator** | Workflow Manager | researcher, solution-designer, critic | Coordinates multi-agent workflows, manages iterations (max 5), prevents loops, delivers final artifacts |
+| **researcher** | Research Specialist | — | Web research via Tavily MCP, AWS documentation discovery, source-backed findings |
+| **solution-designer** | Solution Architect | researcher, critic | Creates Solution Design documents, AWS architecture, extended thinking for complex decisions |
+| **critic** | Technical Reviewer | — | Reviews designs, structured feedback with severity levels, APPROVED/CONDITIONAL/REJECTED verdicts |
+| **devops** | DevOps Engineer | critic | Terraform generation from approved designs, deployment execution, verification procedures |
+| **publisher** | Publications Specialist | — | Mermaid to PNG conversion, Confluence page creation via Atlassian MCP |
+
+### Agent Configuration
+
+Each agent's settings (model, tools, capabilities) can be customized by editing the corresponding `.agent.md` file in the `agents/` directory. The YAML frontmatter contains:
+- `model`: AI model to use (e.g., Claude Sonnet 4.5, Claude Opus 4.6)
+- `tools`: Available tools for the agent
+- `agents`: Subagents this agent can invoke
+
+Example frontmatter:
+```yaml
+---
+name: Orchestrator
+description: Multi-agent workflow orchestrator
+model: Claude Sonnet 4.5 (copilot)
+tools: ['read_file', 'create_file', 'agent']
+agents: ['researcher', 'solution-designer', 'critic']
+---
+```
 
 ## Typical Workflow
 
