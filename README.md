@@ -1,6 +1,6 @@
 # Copilot Agents
 
-Reusable GitHub Copilot chat agents for technical solution design and documentation workflows.
+Reusable GitHub Copilot chat agents for technical solution design, documentation, and cloud deployment workflows (currently supports AWS and Terraform).
 
 ## Agents
 
