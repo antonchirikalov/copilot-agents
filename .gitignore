@@ -1,0 +1,11 @@
+# Generated files
+*.pyc
+__pycache__/
+.DS_Store
+
+# Local state
+workflow_state.json
+workflow_log.md
+generated_docs_*/
+.aws_credentials
+*.credentials
