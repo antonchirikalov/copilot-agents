@@ -5,17 +5,20 @@ Reusable GitHub Copilot chat agents for technical solution design, codebase docu
 Two main workflows:
 - **Solution Design** — research → design → review → delivery (orchestrator + researcher + solution-designer + critic)
 - **Codebase Documentation** — scan → analyze → generate → validate → review (project-documenter + critic)
+- **Python Coding** — plan → code → test → verify → deliver (coder + test-writer)
 
 ## Agents
 
 | Agent | Role | Subagents | Key Capabilities |
 |-------|------|-----------|------------------|
-| **orchestrator** | Workflow Manager | researcher, solution-designer, critic, project-documenter | Coordinates multi-agent workflows, manages iterations (max 5), prevents loops, delivers final artifacts |
+| **orchestrator** | Workflow Manager | researcher, solution-designer, critic, project-documenter, coder | Coordinates multi-agent workflows, manages iterations (max 5), prevents loops, delivers final artifacts |
 | **researcher** | Research Specialist | — | Web research via Tavily MCP, technical documentation discovery, source-backed findings |
 | **solution-designer** | Solution Architect | researcher, critic | Creates Solution Design documents, technical architecture, extended thinking for complex decisions |
 | **critic** | Technical Reviewer | — | Reviews designs, structured feedback with severity levels, APPROVED/CONDITIONAL/REJECTED verdicts |
 | **devops** | DevOps Engineer | critic | Infrastructure as Code generation from approved designs, deployment execution, verification procedures |
 | **project-documenter** | Codebase Documenter | critic | Scans existing codebases, generates single-document technical documentation with Mermaid diagrams |
+| **coder** | Python Developer | test-writer | TODO-driven coding: plans tasks, implements code, runs linters/tests, delivers working solutions |
+| **test-writer** | Test Engineer | — | Writes pytest tests with async support, proper mocking, and fixture patterns |
 | **publisher** | Publications Specialist | — | Mermaid to PNG conversion, Confluence page creation via Atlassian MCP |
 
 ### Agent Configuration
@@ -113,6 +116,41 @@ flowchart TB
     Validate --> Review
 ```
 
+### Python Coding Workflow
+
+```mermaid
+flowchart TB
+    subgraph Plan["Step 1: Plan"]
+        CD[Coder] -->|analyze| CB[Read Codebase]
+        CB -->|Context7| DOCS[Look Up Docs]
+        DOCS --> TM[Generate TASKS.md]
+        TM -->|approval gate| USER[User Approves]
+    end
+
+    subgraph Code["Step 2: Code Loop"]
+        TASK[Next Task] -->|mark in_progress| IMPL[Implement]
+        IMPL -->|parallel| TW[Test Writer]
+        IMPL --> LINT[ruff + mypy]
+        LINT -->|fix| IMPL
+        LINT -->|clean| DONE_T[Mark Completed]
+        DONE_T --> TASK
+    end
+
+    subgraph Verify["Step 3: Verify"]
+        PT[pytest] -->|PASS| CLEAN[All Green]
+        PT -->|FAIL| FIX2[Fix & Rerun]
+        FIX2 --> PT
+    end
+
+    subgraph Deliver["Step 4: Deliver"]
+        SUM[Summary + Commit Message]
+    end
+
+    Plan --> Code
+    Code --> Verify
+    CLEAN --> Deliver
+```
+
 ## Installation
 
 ### Option 1: Git Submodule (Recommended)
@@ -146,6 +184,7 @@ cp -r copilot-agents/skills .github/
 @researcher research autoscaling best practices
 @devops deploy the approved solution
 @project-documenter document this codebase
+@coder implement user authentication with JWT
 @publisher publish document to Confluence
 ```
 
@@ -158,14 +197,19 @@ copilot-agents/
 │   ├── orchestrator/
 │   ├── solution-designer/
 │   ├── critic/
+│   ├── coder/
 │   ├── devops/
 │   ├── project-documenter/
 │   ├── publisher/
+│   ├── test-writer/
 │   └── shared/
 ├── skills/              # Reusable skills with scripts
 │   ├── codebase-scanner/
 │   ├── devops/
 │   ├── doc-validator/
+│   ├── project-context/
+│   ├── task-planner/
+│   ├── test-runner/
 │   ├── workflow-logger/
 │   ├── workflow-state-manager/
 │   └── iteration-controller/

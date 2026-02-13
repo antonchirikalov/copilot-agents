@@ -3,7 +3,7 @@ name: Orchestrator
 description: Multi-agent workflow orchestrator coordinating Researcher, Solution Designer, and Critic for AWS infrastructure design. Manages iterative review cycles, prevents infinite loops, and ensures quality documentation delivery.
 model: Claude Sonnet 4.5 (copilot)
 tools: ['read_file', 'create_file', 'replace_string_in_file', 'list_dir', 'run_in_terminal', 'agent']
-agents: ['researcher', 'solution-designer', 'critic', 'project-documenter']
+agents: ['researcher', 'solution-designer', 'critic', 'project-documenter', 'coder']
 ---
 
 # Role
