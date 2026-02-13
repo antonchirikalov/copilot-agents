@@ -2,6 +2,27 @@
 
 The Coder agent follows a strict PLAN → CODE → VERIFY → DELIVER cycle. Never skip phases.
 
+## Phase 0: BRANCH
+
+Before starting any work, ask the user whether to create a new git branch.
+
+**Prompt:**
+> Create a new branch from current for this work? (yes/no)
+
+**If yes:**
+```bash
+git checkout -b feat/<short-description>
+```
+
+Branch naming convention:
+- Features: `feat/<description>` (e.g., `feat/jwt-auth`)
+- Fixes: `fix/<description>` (e.g., `fix/redis-ttl`)
+- Refactor: `refactor/<description>` (e.g., `refactor/chat-service`)
+
+**If no:** work on the current branch.
+
+---
+
 ## Phase 1: PLAN
 
 ### Input Analysis
@@ -101,20 +122,42 @@ pytest --tb=short -q       # full run
 
 ## Phase 4: DELIVER
 
+### 4a. Commit
+
+Commit all changes:
+```bash
+git add -A
+git commit -m "<type>: <description>"
+```
+
+Commit message format: `<type>: <short description>` + bullet list of changes.
+Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`.
+
+### 4b. Summary
+
 Present to the user:
 
 ```markdown
 ## Summary
+- Branch: feat/jwt-auth
 - Tasks: 8/8 completed
 - Tests: 24 passed, 0 failed
 - Lint: clean (ruff + mypy)
 - Files changed: 5 modified, 3 created
-
-## Suggested commit message
-feat: implement user memory service with Redis caching
-
-- Add UserMemoryService with CRUD operations
-- Add Redis cache layer with TTL
-- Add pytest tests for all service methods
-- Update dependencies in pyproject.toml
 ```
+
+### 4c. Pull Request
+
+Ask the user:
+> Create a Pull Request? (yes/no)
+
+**If yes:**
+```bash
+git push origin <branch-name>
+```
+Then create a PR using GitHub MCP with:
+- **Title:** commit message
+- **Body:** summary from 4b + task list from TASKS.md
+- **Base:** the branch that was current before Step 0
+
+**If no:** inform the user the branch is ready for manual PR creation.

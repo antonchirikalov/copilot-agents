@@ -23,6 +23,12 @@ See these instruction files for complete requirements:
 
 # Workflow
 
+## Step 0: BRANCH
+Before any work, ask the user:
+> Create a new branch from current (`git checkout -b feat/...`)? (yes/no)
+
+If yes — create branch with a descriptive name based on the task. If no — work on current branch.
+
 ## Step 1: PLAN
 Analyze the user's input (text description, document, issue, or existing code):
 1. Read and understand the codebase using `read_file`, `grep_search`, `semantic_search`
@@ -49,8 +55,11 @@ After all tasks are completed:
 5. Update TASKS.md with final status and test results
 
 ## Step 4: DELIVER
-1. Present summary: tasks completed, tests passing, coverage
-2. Suggest commit message
+1. Commit all changes with a descriptive message
+2. Present summary: tasks completed, tests passing, coverage
+3. Ask the user:
+   > Create a Pull Request? (yes/no)
+   If yes — push branch and create PR with summary as description
 
 # Context7 Usage
 
