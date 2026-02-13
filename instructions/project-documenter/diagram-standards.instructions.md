@@ -16,8 +16,11 @@ description: Mermaid diagram types, formatting rules, and caption standards for 
 ### Fig 2: Technology Map
 - Type: mindmap
 - Shows: technology stack organized by category
-- Categories: Languages, Frameworks, Databases, Infrastructure, External Services
-- Max 4-5 categories, 8-12 total leaves
+- Categories: max 4 categories (e.g., Backend, Data, Infrastructure, External)
+- Max 3-4 items per category, 10-14 total leaves
+- Each leaf = single technology name (e.g., "FastAPI", "Redis"), NOT descriptions
+- Max depth: 2 levels (root → category → technology)
+- NO nested sub-categories within categories
 - Derived from imports, package.json/requirements.txt, configs
 
 ### Fig 3: Component Diagram
@@ -53,12 +56,16 @@ description: Mermaid diagram types, formatting rules, and caption standards for 
 
 ## Mermaid Rules
 - Allowed types: flowchart, graph, sequenceDiagram, mindmap
-- FORBIDDEN types: C4Context, C4Container, C4Component (rendering issues)
+- FORBIDDEN types: C4Context, C4Container, C4Component, block-beta (rendering issues)
 - Use subgraph for logical grouping
 - Use abstract names (Auto-Scaling Group, not Instance-1, Instance-2)
 - Node labels should match component names in text and tables
-- Keep diagrams readable: max 15-20 nodes per diagram
+- Keep diagrams SIMPLE and READABLE:
+  - flowchart/graph: max 12-15 nodes
+  - sequenceDiagram: max 6 participants, max 15 interactions
+  - mindmap: max 2 levels deep, max 14 leaves total
 - If architecture is complex, split into multiple focused diagrams rather than one huge one
+- ALWAYS test that diagrams render correctly — avoid complex nested subgraphs
 
 ## Diagram Accuracy Rule
 Every node in a diagram MUST correspond to something found in the codebase:
