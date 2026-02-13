@@ -11,6 +11,7 @@ Reusable GitHub Copilot chat agents for technical solution design, documentation
 | **solution-designer** | Solution Architect | researcher, critic | Creates Solution Design documents, technical architecture, extended thinking for complex decisions |
 | **critic** | Technical Reviewer | — | Reviews designs, structured feedback with severity levels, APPROVED/CONDITIONAL/REJECTED verdicts |
 | **devops** | DevOps Engineer | critic | Infrastructure as Code generation from approved designs, deployment execution, verification procedures |
+| **project-documenter** | Codebase Documenter | critic | Scans existing codebases, generates single-document technical documentation with Mermaid diagrams |
 | **publisher** | Publications Specialist | — | Mermaid to PNG conversion, Confluence page creation via Atlassian MCP |
 
 ### Agent Configuration
@@ -103,6 +104,7 @@ cp -r copilot-agents/skills .github/
 @orchestrator create solution design for distributed TTS service
 @researcher research autoscaling best practices
 @devops deploy the approved solution
+@project-documenter document this codebase
 @publisher publish document to Confluence
 ```
 
@@ -116,10 +118,13 @@ copilot-agents/
 │   ├── solution-designer/
 │   ├── critic/
 │   ├── devops/
+│   ├── project-documenter/
 │   ├── publisher/
 │   └── shared/
 ├── skills/              # Reusable skills with scripts
+│   ├── codebase-scanner/
 │   ├── devops/
+│   ├── doc-validator/
 │   ├── workflow-logger/
 │   ├── workflow-state-manager/
 │   └── iteration-controller/
