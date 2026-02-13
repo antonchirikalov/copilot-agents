@@ -6,6 +6,8 @@ The Coder agent follows a strict PLAN → CODE → VERIFY → DELIVER cycle. Nev
 
 Before starting any work, ask the user whether to create a new git branch.
 
+**CRITICAL:** When using `ask_questions` tool, do NOT mark any option as `recommended`. Do NOT proceed until the user explicitly answers. This is a blocking question — wait for the user's choice.
+
 **Prompt:**
 > Create a new branch from current for this work? (yes/no)
 
@@ -150,6 +152,8 @@ Present to the user:
 
 Ask the user:
 > Create a Pull Request? (yes/no)
+
+**CRITICAL:** When using `ask_questions` tool, do NOT mark any option as `recommended`. Do NOT proceed until the user explicitly answers. This is a blocking question — wait for the user's choice.
 
 **If yes:**
 ```bash

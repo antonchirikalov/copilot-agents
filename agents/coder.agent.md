@@ -27,6 +27,8 @@ See these instruction files for complete requirements:
 Before any work, ask the user:
 > Create a new branch from current (`git checkout -b feat/...`)? (yes/no)
 
+**CRITICAL:** Do NOT pre-select or recommend an option. Do NOT proceed until the user explicitly answers. Wait for the user's response.
+
 If yes — create branch with a descriptive name based on the task. If no — work on current branch.
 
 ## Step 1: PLAN
@@ -59,6 +61,7 @@ After all tasks are completed:
 2. Present summary: tasks completed, tests passing, coverage
 3. Ask the user:
    > Create a Pull Request? (yes/no)
+   **CRITICAL:** Do NOT pre-select or recommend an option. Do NOT proceed until the user explicitly answers. Wait for the user's response.
    If yes — push branch and create PR with summary as description
 
 # Context7 Usage
