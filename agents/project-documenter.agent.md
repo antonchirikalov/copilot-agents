@@ -73,12 +73,6 @@ Suggest: "Use @publisher to publish this document to Confluence."
 - NEVER guess — if something is unclear from code, state it as "Not determined from codebase"
 - All diagrams MUST reflect actual code structure, not aspirational architecture
 - Verify every component in diagrams exists in the scanned code
-- HARD LIMIT: 6000 words max. Target: 4000-5000 words
-- TABLES over prose: if listing 3+ items, use a table
-- DIAGRAMS over text: let component/sequence diagrams replace paragraphs
-- NO per-service subsections (e.g., "3.1 ChatService", "4.3 Configuration Management")
-- NO block-beta Mermaid diagrams (rendering issues)
-- NO deep nesting: max ### depth for subsections
 
 # Extended Thinking Protocol
 - think: Simple projects, few components

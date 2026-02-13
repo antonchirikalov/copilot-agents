@@ -30,19 +30,16 @@ description: Required structure and section definitions for the Project Document
 - Diagrams: Context diagram + Technology mindmap
 
 ### 3. System Architecture
-- NO per-service subsections (e.g., "3.1 ChatService (app/services/chat_service.py)" is FORBIDDEN)
-- ONE summary table of all services/components:
-  # | Service/Component | Description (1 sentence) | Key Technologies
-- Inter-component communication patterns (HTTP, queues, shared DB, etc.) as 1-2 sentences
-- Diagrams: Component diagram (showing all services + relationships) + Deployment diagram
-- Let diagrams tell the story of how components connect, NOT prose paragraphs per component
+- Component descriptions with responsibilities (derived from modules/packages)
+- Component table: # | Component | Responsibility | Key Technologies
+- Inter-component communication patterns (HTTP, queues, shared DB, etc.)
+- Diagrams: Component diagram + Architecture/Deployment diagram
 
 ### 4. Data Model and Flow
 - Data entities table: # | Entity | Fields Summary | Storage
-- Relationships between entities (1-2 sentences, NOT per-entity subsections)
-- Key data flows: describe in 2-3 short paragraphs, NOT per-flow subsections
+- Relationships between entities
+- Key data flows through the system
 - Diagrams: 2-3 Sequence diagrams for main scenarios (derived from API routes and handlers)
-- Sequence diagrams ARE the detailed documentation — minimize surrounding text
 
 ### 5. API Specification
 - Endpoints table: # | Method | Path | Description | Auth
@@ -69,30 +66,21 @@ description: Required structure and section definitions for the Project Document
 - Known limitations visible from code comments, TODOs, or configuration
 
 ## Section Size Guidelines
-| Section | Target Lines | Max Lines |
-|---------|-------------|----------|
-| References | 15-25 | 30 |
-| Solution Overview | 30-50 | 60 |
-| System Architecture | 50-80 | 100 |
-| Data Model and Flow | 50-80 | 100 |
-| API Specification | 30-60 | 80 |
-| Infrastructure and Deployment | 20-40 | 50 |
-| Monitoring and Operations | 15-30 | 40 |
-| Assumptions and Constraints | 15-25 | 30 |
+| Section | Target Lines |
+|---------|-------------|
+| References | 15-25 |
+| Solution Overview | 40-60 |
+| System Architecture | 80-120 |
+| Data Model and Flow | 60-100 |
+| API Specification | 40-80 |
+| Infrastructure and Deployment | 30-50 |
+| Monitoring and Operations | 20-40 |
+| Assumptions and Constraints | 15-30 |
 
 ## Total Document Size
-- TARGET: 4000-5000 words
-- HARD LIMIT: 6000 words absolute max
+- Target: 4000-6000 words
+- Hard limit: 8000 words
 - Be CONCISE: tables over paragraphs, short statements over explanations
-- Let DIAGRAMS do the heavy lifting — diagrams + captions replace paragraphs
-- If you are writing more than 3 sentences about one component, STOP and use a table instead
-
-## Structure Anti-Patterns (FORBIDDEN)
-- Per-service subsections like "3.1 ChatService", "3.2 LLMService", etc.
-- Per-config-file subsections like "4.3 Configuration Management (app/config.py)"
-- Repeating information that is already in a table or diagram
-- Long prose descriptions of what a class/function does (use tables)
-- Nested subsections deeper than ###
 
 ## Forbidden Content
 - Recommendations or suggestions ("consider adding", "it would be better to")
