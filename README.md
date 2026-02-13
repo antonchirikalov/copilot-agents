@@ -1,12 +1,16 @@
 # Copilot Agents
 
-Reusable GitHub Copilot chat agents for technical solution design, documentation, and cloud deployment workflows (currently supports AWS and Terraform).
+Reusable GitHub Copilot chat agents for technical solution design, codebase documentation, and cloud deployment workflows (currently supports AWS and Terraform).
+
+Two main workflows:
+- **Solution Design** — research → design → review → delivery (orchestrator + researcher + solution-designer + critic)
+- **Codebase Documentation** — scan → analyze → generate → validate → review (project-documenter + critic)
 
 ## Agents
 
 | Agent | Role | Subagents | Key Capabilities |
 |-------|------|-----------|------------------|
-| **orchestrator** | Workflow Manager | researcher, solution-designer, critic | Coordinates multi-agent workflows, manages iterations (max 5), prevents loops, delivers final artifacts |
+| **orchestrator** | Workflow Manager | researcher, solution-designer, critic, project-documenter | Coordinates multi-agent workflows, manages iterations (max 5), prevents loops, delivers final artifacts |
 | **researcher** | Research Specialist | — | Web research via Tavily MCP, technical documentation discovery, source-backed findings |
 | **solution-designer** | Solution Architect | researcher, critic | Creates Solution Design documents, technical architecture, extended thinking for complex decisions |
 | **critic** | Technical Reviewer | — | Reviews designs, structured feedback with severity levels, APPROVED/CONDITIONAL/REJECTED verdicts |
@@ -32,7 +36,9 @@ agents: ['researcher', 'solution-designer', 'critic']
 ---
 ```
 
-## Typical Workflow
+## Workflows
+
+### Solution Design Workflow
 
 ```mermaid
 flowchart TB
@@ -70,6 +76,41 @@ flowchart TB
 
     Phase4 -.->|"@devops deploy"| DEV
     Phase4 -.->|"@publisher publish"| PUB
+```
+
+### Codebase Documentation Workflow
+
+```mermaid
+flowchart TB
+    subgraph Scan["Step 1: Scan"]
+        PD[Project Documenter] -->|codebase-scanner.py| PM[project_map.json]
+    end
+
+    subgraph Analyze["Step 2-3: Analyze & Enrich"]
+        PM --> AN[Analyze Structure]
+        AN -->|Context7, Tavily| EN[Enrich with Docs]
+    end
+
+    subgraph Generate["Step 4: Generate"]
+        EN --> DOC[Project_Documentation.md]
+        DOC --- DG["6-7 Mermaid Diagrams"]
+    end
+
+    subgraph Validate["Step 5: Validate"]
+        DOC --> VS[validate-structure.py]
+        DOC --> WC[word-counter.py]
+        DOC --> DC[diagram-checker.py]
+    end
+
+    subgraph Review["Step 6: Review"]
+        CR[Critic]
+        CR -->|APPROVED| OK[✓ Final Document]
+        CR -->|REJECTED| FIX[Revise]
+        FIX --> PD2[Project Documenter]
+        PD2 --> CR
+    end
+
+    Validate --> Review
 ```
 
 ## Installation
